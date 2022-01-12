@@ -8,7 +8,7 @@ public class Throw : MonoBehaviour {
     private GameObject[] search;
     // Use this for initialization
     public Rigidbody2D rb;
-    public GameObject feet;
+    public GameObject feet, poof;
     public LayerMask ground;
     void Start ()
     {
@@ -18,11 +18,15 @@ public class Throw : MonoBehaviour {
 	
 	void Update ()
     {
-        if (Physics2D.OverlapCircle(feet.transform.position, .05f,ground))
+        if (Physics2D.OverlapCircle(feet.transform.position, .11f, ground))
+        {
             gameObject.GetComponent<Animator>().SetBool("isIdle", true);
+            gameObject.GetComponent<Animator>().SetFloat("flySpeed", 0);
+        }
         else
         {
             gameObject.GetComponent<Animator>().SetBool("isIdle", false);
+            gameObject.GetComponent<Animator>().SetFloat("flySpeed", Mathf.Abs(rb.velocity.x));
         }
         //old way of teleporting
         /*if (Input.GetMouseButtonDown(0))
@@ -71,8 +75,11 @@ public class Throw : MonoBehaviour {
                     if (Vector2.Distance(g.transform.position, mousePosition) < Vector2.Distance(closest.transform.position, mousePosition))
                         closest = g;
                 }
+                Instantiate(poof, transform);
+                Instantiate(poof, transform.position,Quaternion.identity);
                 transform.position = closest.transform.position; //jump to knife pos
                 rb.velocity = closest.GetComponent<Rigidbody2D>().velocity;
+                gameObject.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), 1, 1);
                 Destroy(closest);
                 rb.gravityScale = 1f;
 
@@ -83,7 +90,7 @@ public class Throw : MonoBehaviour {
         if(Input.GetMouseButtonDown(0))
         {
             UseItem();
-            gameObject.GetComponent<Animator>().Play("aPlayerThrow");
+           
         }
 
     }
@@ -92,10 +99,12 @@ public class Throw : MonoBehaviour {
     {
         if (ItemList.currentItem < ItemList.items.Length)
         {
-            
+            Vector3 mousePos =Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+            gameObject.transform.localScale = new Vector3(Mathf.Sign(mousePos.x-transform.position.x), 1, 1);
             Instantiate(ItemList.items[ItemList.currentItem], transform.position, Quaternion.identity);
             //ItemList.items[ItemList.currentItem].GetComponent<throwingKC>().icon = ItemList.items[ItemList.currentItem].GetComponent<throwingKC>().empty;//set new icon after thrown
             ItemList.currentItem++;
+            gameObject.GetComponent<Animator>().Play("aPlayerThrow");
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour {
 
+    public GameObject deadDog;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,7 +16,7 @@ public class Enemy : MonoBehaviour {
 		
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag=="Weapon"|| collision.gameObject.tag == "EnemyWeapon")//next level
         {
@@ -24,12 +25,21 @@ public class Enemy : MonoBehaviour {
             endLv = GameObject.FindGameObjectsWithTag("Enemy");
             if (endLv.Length <= 1)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                ItemList.currentItem = 0;
+
+                GetComponent<Animator>().SetBool("isDead", true);
+                
+               
             }
 
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
+            
         }
     }
+
+    public void killDog()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        ItemList.currentItem = 0;
+    }
+
+   
 }

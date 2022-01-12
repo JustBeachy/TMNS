@@ -327,3 +327,5 @@ C:\Users\Alex\Documents\NinjaJump\Temp\bin\Debug\UnityEngine.Purchasing.AppleMac
 C:\Users\Alex\Documents\NinjaJump\Temp\bin\Debug\UnityEngine.Purchasing.WinRTStub.pdb
 C:\Users\Alex\Documents\NinjaJump\Temp\bin\Debug\UnityEngine.TestRunner.pdb
 C:\Users\Alex\Documents\NinjaJump\Temp\bin\Debug\UnityEditor.TestRunner.pdb
+C:\Users\Alex\Documents\NinjaJump\Temp\bin\Debug\UnityEngine.WebGLModule.dll
+C:\Users\Alex\Documents\NinjaJump\Temp\bin\Debug\UnityEngine.WebGLModule.pdb

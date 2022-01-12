@@ -16,6 +16,7 @@ public class throwingKC : MonoBehaviour
     public Texture icon;
     public PhysicMaterial isBouncy;
     public bool icy = false;
+    public GameObject friedAcorn;
     
     
    
@@ -41,7 +42,11 @@ public class throwingKC : MonoBehaviour
     void Update()
     {
         
-
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            Instantiate(friedAcorn,transform.position,transform.rotation);
+            Destroy(gameObject);
+        }
        // if (isMoving) //angle/rotation
        // {
             //transform.position = Vector2.MoveTowards(transform.position, mousePosition, .5f);
