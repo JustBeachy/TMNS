@@ -7,12 +7,17 @@ public class animDestroy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length + 0);
+        //Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length + 0);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void DestroyAnimation()
+    {
+        Destroy(gameObject);
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="Assets\Sniper.cs" />
     <Compile Include="Assets\SpikeDown.cs" />
     <Compile Include="Assets\Throw.cs" />
+    <Compile Include="Assets\Unlock.cs" />
     <Compile Include="Assets\acornUI.cs" />
     <Compile Include="Assets\animDestroy.cs" />
     <Compile Include="Assets\throwingKC.cs" />

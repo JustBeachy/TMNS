@@ -42,11 +42,7 @@ public class throwingKC : MonoBehaviour
     void Update()
     {
         
-        if(Input.GetKeyDown(KeyCode.B))
-        {
-            Instantiate(friedAcorn,transform.position,transform.rotation);
-            Destroy(gameObject);
-        }
+       
        // if (isMoving) //angle/rotation
        // {
             //transform.position = Vector2.MoveTowards(transform.position, mousePosition, .5f);
@@ -111,6 +107,14 @@ public class throwingKC : MonoBehaviour
         
     
     }
-    
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag=="LaserB")
+        {
+            Instantiate(friedAcorn, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+    }
+
+
 }

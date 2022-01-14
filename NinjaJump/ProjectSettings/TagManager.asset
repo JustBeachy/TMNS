@@ -11,6 +11,9 @@ TagManager:
   - Rotator
   - EnemyWeapon
   - PaperWall
+  - LaserB
+  - LaserR
+  - Key
   layers:
   - Default
   - TransparentFX
