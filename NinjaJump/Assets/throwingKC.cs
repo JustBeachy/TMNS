@@ -63,8 +63,8 @@ public class throwingKC : MonoBehaviour
             
 
         }
-        else
-            rb.velocity = new Vector3(0, 0, 0);
+       // else
+          //  rb.velocity = new Vector3(0, 0, 0);
 
         //gameObject.transform.forward =Vector3.Slerp(gameObject.transform.forward, rb.velocity.normalized, Time.deltaTime);
     }
@@ -85,7 +85,7 @@ public class throwingKC : MonoBehaviour
             }
             else
             {
-                
+            GetComponent<AudioSource>().Play();
             // gameObject.GetComponent<Collider>().material = null;
 
                 rb.velocity=new Vector2(0,0);

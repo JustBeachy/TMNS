@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour {
             {
 
                 GetComponent<Animator>().SetBool("isDead", true);
+                GetComponent<AudioSource>().Play();
                 
                
             }

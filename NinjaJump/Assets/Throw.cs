@@ -10,6 +10,10 @@ public class Throw : MonoBehaviour {
     public Rigidbody2D rb;
     public GameObject feet, poof;
     public LayerMask ground;
+    bool isdead=false;
+
+    public AudioClip DeathAudio, ThrowAudio, PoofAudio;
+
     void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,15 +22,18 @@ public class Throw : MonoBehaviour {
 	
 	void Update ()
     {
-        if (Physics2D.OverlapCircle(feet.transform.position, .11f, ground))
+        if (!isdead)
         {
-            gameObject.GetComponent<Animator>().SetBool("isIdle", true);
-            gameObject.GetComponent<Animator>().SetFloat("flySpeed", 0);
-        }
-        else
-        {
-            gameObject.GetComponent<Animator>().SetBool("isIdle", false);
-            gameObject.GetComponent<Animator>().SetFloat("flySpeed", Mathf.Abs(rb.velocity.x));
+            if (Physics2D.OverlapCircle(feet.transform.position, .11f, ground))
+            {
+                gameObject.GetComponent<Animator>().SetBool("isIdle", true);
+                gameObject.GetComponent<Animator>().SetFloat("flySpeed", 0);
+            }
+            else
+            {
+                gameObject.GetComponent<Animator>().SetBool("isIdle", false);
+                gameObject.GetComponent<Animator>().SetFloat("flySpeed", Mathf.Abs(rb.velocity.x));
+            }
         }
         //old way of teleporting
         /*if (Input.GetMouseButtonDown(0))
@@ -62,13 +69,14 @@ public class Throw : MonoBehaviour {
                     }
                 }
             }*/
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1)&&!isdead)//teleport
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10)); //get mouse pos
             search = GameObject.FindGameObjectsWithTag("Weapon");//check all weapons
 
-            if (search != null)
+            if (search.Length>0)
             {
+               
                 GameObject closest = search[0];
                 foreach (GameObject g in search)//find closest knife
                 {
@@ -82,6 +90,8 @@ public class Throw : MonoBehaviour {
                 gameObject.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), 1, 1);
                 Destroy(closest);
                 rb.gravityScale = 1f;
+                GetComponent<AudioSource>().clip = PoofAudio;
+                GetComponent<AudioSource>().Play();
 
             }
 
@@ -95,9 +105,9 @@ public class Throw : MonoBehaviour {
 
     }
 
-    public void UseItem()
+    public void UseItem()//throw
     {
-        if (ItemList.currentItem < ItemList.items.Length)
+        if ((ItemList.currentItem < ItemList.items.Length)&&!isdead)
         {
             Vector3 mousePos =Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
             gameObject.transform.localScale = new Vector3(Mathf.Sign(mousePos.x-transform.position.x), 1, 1);
@@ -105,6 +115,8 @@ public class Throw : MonoBehaviour {
             //ItemList.items[ItemList.currentItem].GetComponent<throwingKC>().icon = ItemList.items[ItemList.currentItem].GetComponent<throwingKC>().empty;//set new icon after thrown
             ItemList.currentItem++;
             gameObject.GetComponent<Animator>().Play("aPlayerThrow");
+            GetComponent<AudioSource>().clip = ThrowAudio;
+            GetComponent<AudioSource>().Play();
         }
     }
 
@@ -120,9 +132,17 @@ public class Throw : MonoBehaviour {
     {
         if(collision.tag=="LaserR")
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            GetComponent<Animator>().SetBool("isDead", true);
+            isdead = true;
+            GetComponent<AudioSource>().clip = DeathAudio;
+            GetComponent<AudioSource>().Play();
         }
+    }
+
+    public void RestartLevel()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 
 }
