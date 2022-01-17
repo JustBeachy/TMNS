@@ -14,6 +14,7 @@ TagManager:
   - LaserB
   - LaserR
   - Key
+  - Canvas
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ public class Throw : MonoBehaviour {
     public Rigidbody2D rb;
     public GameObject feet, poof;
     public LayerMask ground;
-    bool isdead=false;
+    public bool isdead=false;
 
     public AudioClip DeathAudio, ThrowAudio, PoofAudio;
 
@@ -24,7 +24,7 @@ public class Throw : MonoBehaviour {
     {
         if (!isdead)
         {
-            if (Physics2D.OverlapCircle(feet.transform.position, .11f, ground))
+            if (Physics2D.OverlapCircle(feet.transform.position, .13f, ground))
             {
                 gameObject.GetComponent<Animator>().SetBool("isIdle", true);
                 gameObject.GetComponent<Animator>().SetFloat("flySpeed", 0);
@@ -120,22 +120,12 @@ public class Throw : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag == "Rotator")
-        {
-            rb.gravityScale = 1; //cannot hang on rotating platforms
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag=="LaserR")
         {
-            GetComponent<Animator>().SetBool("isDead", true);
-            isdead = true;
-            GetComponent<AudioSource>().clip = DeathAudio;
-            GetComponent<AudioSource>().Play();
+            Die();
         }
     }
 
@@ -143,6 +133,27 @@ public class Throw : MonoBehaviour {
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Rotator")
+        {
+            rb.gravityScale = 1; //cannot hang on rotating platforms
+        }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        GetComponent<Animator>().SetBool("isDead", true);
+        isdead = true;
+        GetComponent<AudioSource>().clip = DeathAudio;
+        GetComponent<AudioSource>().Play();
     }
 
 }

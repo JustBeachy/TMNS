@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour {
 
-    public GameObject deadDog;
+    public GameObject LVcomplete;
 	// Use this for initialization
 	void Start () {
 		
@@ -25,9 +25,15 @@ public class Enemy : MonoBehaviour {
             endLv = GameObject.FindGameObjectsWithTag("Enemy");
             if (endLv.Length <= 1)
             {
+                if (!GetComponent<Animator>().GetBool("isDead"))
+                {
+                    GetComponent<AudioSource>().Play();
+                    Instantiate(LVcomplete, GameObject.FindGameObjectWithTag("Canvas").transform);
+                }
 
                 GetComponent<Animator>().SetBool("isDead", true);
-                GetComponent<AudioSource>().Play();
+
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Throw>().isdead = true;//not actually killing playeer, just disabling throws
                 
                
             }
