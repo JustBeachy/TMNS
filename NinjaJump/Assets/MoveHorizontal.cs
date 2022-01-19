@@ -28,11 +28,14 @@ public class MoveHorizontal : MonoBehaviour {
             
         }
 
-        ctime+=Time.deltaTime;
-        if (ctime>timer)
+        if (timer != 0)
         {
-            ctime = 0;
-            dir *= -1f;
+            ctime += Time.deltaTime;
+            if (ctime > timer)
+            {
+                ctime = 0;
+                dir *= -1f;
+            }
         }
 	}
 

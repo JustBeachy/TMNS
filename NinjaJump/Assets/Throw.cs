@@ -150,10 +150,15 @@ public class Throw : MonoBehaviour {
 
     private void Die()
     {
+        if (GetComponent<Animator>().GetBool("isDead") == false)
+        {
+            GetComponent<AudioSource>().clip = DeathAudio;
+            GetComponent<AudioSource>().Play();
+        }
+
         GetComponent<Animator>().SetBool("isDead", true);
         isdead = true;
-        GetComponent<AudioSource>().clip = DeathAudio;
-        GetComponent<AudioSource>().Play();
+        
     }
 
 }
