@@ -91,6 +91,7 @@ public class throwingKC : MonoBehaviour
                 rb.velocity=new Vector2(0,0);
                 rb.freezeRotation = true;
                 rb.isKinematic = true;
+                if(other.gameObject.tag!="Key") //fixes bug with acorn falling flat from a target hit, resulting in player clipping ground
                 isMoving = false;
                
                 if(other.transform.childCount>0) //rotate or move with object
