@@ -9,6 +9,7 @@ public class MoveHorizontal : MonoBehaviour {
     public bool horizontal = true;
     public float timer=1;
     private float ctime=0;
+    bool start = false;
 	// Use this for initialization
 	void Start () {
         startPos = transform.position;
@@ -16,25 +17,31 @@ public class MoveHorizontal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(horizontal)
-        {
-            
-            transform.position += new Vector3(speed*dir, 0, 0)*Time.deltaTime;
-            
-        }
-        else//vertical platform
-        {
-            transform.position += new Vector3(0, speed*dir, 0)*Time.deltaTime;
-            
-        }
+        if (Input.GetMouseButtonDown(0))
+            start = true;
 
-        if (timer != 0)
+        if (start)
         {
-            ctime += Time.deltaTime;
-            if (ctime > timer)
+            if (horizontal)
             {
-                ctime = 0;
-                dir *= -1f;
+
+                transform.position += new Vector3(speed * dir, 0, 0) * Time.deltaTime;
+
+            }
+            else//vertical platform
+            {
+                transform.position += new Vector3(0, speed * dir, 0) * Time.deltaTime;
+
+            }
+
+            if (timer != 0)
+            {
+                ctime += Time.deltaTime;
+                if (ctime > timer)
+                {
+                    ctime = 0;
+                    dir *= -1f;
+                }
             }
         }
 	}

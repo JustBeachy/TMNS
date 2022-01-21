@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dir: 1
-  speed: 0.4
+  speed: 0.5
   horizontal: 1
   timer: 5
 --- !u!1 &93313048 stripped
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dir: -1
-  speed: 0.4
+  speed: 0.5
   horizontal: 1
   timer: 5
 --- !u!1 &350265062 stripped
@@ -2974,7 +2974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dir: 1
-  speed: 0.4
+  speed: 0.5
   horizontal: 0
   timer: 5
 --- !u!1 &1446011698
@@ -3384,7 +3384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dir: -1
-  speed: 0.4
+  speed: 0.5
   horizontal: 0
   timer: 5
 --- !u!1 &1685996553 stripped
