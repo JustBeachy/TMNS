@@ -17,6 +17,7 @@ public class throwingKC : MonoBehaviour
     public PhysicMaterial isBouncy;
     public bool icy = false;
     public GameObject friedAcorn;
+    public bool onStartScreen = false;
     
     
    
@@ -29,13 +30,18 @@ public class throwingKC : MonoBehaviour
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
         rb = GetComponent<Rigidbody2D>();
-        mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,10));
-        //direction = Mathf.Atan2(transform.position.y - mousePosition.y, transform.position.x - mousePosition.x) * Mathf.Rad2Deg;
-        AimVector = mousePosition - new Vector2 (transform.position.x,transform.position.y);
-        AimVector.Normalize();
-        AimVector.x *= speed;
-        AimVector.y *= speed;
-        rb.velocity = new Vector2(AimVector.x, AimVector.y); //* Time.deltaTime*140;
+        if (!onStartScreen)
+        {
+            mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+            //direction = Mathf.Atan2(transform.position.y - mousePosition.y, transform.position.x - mousePosition.x) * Mathf.Rad2Deg;
+            AimVector = mousePosition - new Vector2(transform.position.x, transform.position.y);
+            AimVector.Normalize();
+            AimVector.x *= speed;
+            AimVector.y *= speed;
+            rb.velocity = new Vector2(AimVector.x, AimVector.y); //* Time.deltaTime*140;
+        }
+        else
+            rb.velocity = new Vector2(4, 0);
     }
 
     // Update is called once per frame

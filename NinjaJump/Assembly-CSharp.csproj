@@ -66,6 +66,7 @@
     <Compile Include="Assets\EnemyThrow.cs" />
     <Compile Include="Assets\EnemyTimer.cs" />
     <Compile Include="Assets\ItemList.cs" />
+    <Compile Include="Assets\Logo.cs" />
     <Compile Include="Assets\MoveHorizontal.cs" />
     <Compile Include="Assets\PaperWall.cs" />
     <Compile Include="Assets\ResetButton.cs" />

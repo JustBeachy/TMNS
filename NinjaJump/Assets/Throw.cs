@@ -71,29 +71,7 @@ public class Throw : MonoBehaviour {
             }*/
         if (Input.GetMouseButtonDown(1)&&!isdead)//teleport
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10)); //get mouse pos
-            search = GameObject.FindGameObjectsWithTag("Weapon");//check all weapons
-
-            if (search.Length>0)
-            {
-               
-                GameObject closest = search[0];
-                foreach (GameObject g in search)//find closest knife
-                {
-                    if (Vector2.Distance(g.transform.position, mousePosition) < Vector2.Distance(closest.transform.position, mousePosition))
-                        closest = g;
-                }
-                Instantiate(poof, transform);
-                Instantiate(poof, transform.position,Quaternion.identity);
-                transform.position = closest.transform.position; //jump to knife pos
-                rb.velocity = closest.GetComponent<Rigidbody2D>().velocity;
-                gameObject.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), 1, 1);
-                Destroy(closest);
-                rb.gravityScale = 1f;
-                GetComponent<AudioSource>().clip = PoofAudio;
-                GetComponent<AudioSource>().Play();
-
-            }
+            TeleportToAcorn();
 
         }
 
@@ -159,6 +137,33 @@ public class Throw : MonoBehaviour {
         GetComponent<Animator>().SetBool("isDead", true);
         isdead = true;
         
+    }
+
+    public void TeleportToAcorn()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10)); //get mouse pos
+        search = GameObject.FindGameObjectsWithTag("Weapon");//check all weapons
+
+        if (search.Length > 0)
+        {
+
+            GameObject closest = search[0];
+            foreach (GameObject g in search)//find closest knife
+            {
+                if (Vector2.Distance(g.transform.position, mousePosition) < Vector2.Distance(closest.transform.position, mousePosition))
+                    closest = g;
+            }
+            Instantiate(poof, transform);
+            Instantiate(poof, transform.position, Quaternion.identity);
+            transform.position = closest.transform.position; //jump to knife pos
+            rb.velocity = closest.GetComponent<Rigidbody2D>().velocity;
+            gameObject.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), 1, 1);
+            Destroy(closest);
+            rb.gravityScale = 1f;
+            GetComponent<AudioSource>().clip = PoofAudio;
+            GetComponent<AudioSource>().Play();
+
+        }
     }
 
 }
