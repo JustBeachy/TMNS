@@ -8,7 +8,7 @@ public class Throw : MonoBehaviour {
     private GameObject[] search;
     // Use this for initialization
     public Rigidbody2D rb;
-    public GameObject feet, poof;
+    public GameObject feet, poof, clipfix;
     public LayerMask ground;
     public bool isdead=false;
 
@@ -28,6 +28,9 @@ public class Throw : MonoBehaviour {
             {
                 gameObject.GetComponent<Animator>().SetBool("isIdle", true);
                 gameObject.GetComponent<Animator>().SetFloat("flySpeed", 0);
+
+                if (Physics2D.OverlapCircle(clipfix.transform.position, .01f, ground)&&transform.position.y<-2.3f)//clip fix
+                    gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + .1f);
             }
             else
             {
