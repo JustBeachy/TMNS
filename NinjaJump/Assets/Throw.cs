@@ -135,6 +135,7 @@ public class Throw : MonoBehaviour {
         {
             GetComponent<AudioSource>().clip = DeathAudio;
             GetComponent<AudioSource>().Play();
+            rb.velocity = new Vector2(0, 0);
         }
 
         GetComponent<Animator>().SetBool("isDead", true);
